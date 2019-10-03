@@ -14,14 +14,14 @@
         var pal2 = pal.split("").reverse().join("");
         for (var i = 0; i < pal2.length; i++) {}
         if (pal2 == pal) {
-            alert("Esta palabra es palindroma");
+            document.write("Esta palabra es palindroma");
         } else {
             for (var i = 0; i < pal2.length; i++) {
                 if (pal.charAt(i) != pal2.charAt(i)) {
                     var f = indexOf(charAt(i));
                 }
             }
-            alert("No es palindroma desde el caracter", f);
+            document.write("No es palindroma desde el caracter", f);
         }
     </script>
 </body>

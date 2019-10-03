@@ -16,12 +16,13 @@
         if (pal2 == pal) {
             document.write("Esta palabra es palindroma");
         } else {
-            for (var i = 0; i < pal2.length; i++) {
+            for (var i = 0; i < pal.length; i++) {
                 if (pal.charAt(i) != pal2.charAt(i)) {
-                    var f = indexOf(charAt(i));
+                    var f = pal.indexOf(charAt(i));
+                    break;
                 }
             }
-            document.write("No es palindroma desde el caracter", f);
+            document.write("No es palindroma desde el caracter");
         }
     </script>
 </body>

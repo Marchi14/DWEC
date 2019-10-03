@@ -9,7 +9,12 @@
 <body>
     <script>
         var pal = prompt("Escribe una palabara para comprobar si es palindroma");
-        var pal2 = reverse(pal);
+        pal.toLowerCase();
+        pala = pal.split();
+        pala = pala.join();
+        pala = pala.split();
+        pala = pala.reverse();
+        pal2 = pala.join();
         if (pal2 == pal) {
             alert("Esta palabra es palindroma");
         } else {

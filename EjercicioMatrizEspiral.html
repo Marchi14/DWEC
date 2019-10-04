@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Matriz Caracol</title>
+</head>
+
+<body>
+    <script language="JavaScript" type="text/javascript">
+        var array1 = new Array(3);
+        for (var i = 0; i < array1.length; i++) {
+            array1 = new Array(3);
+        }
+
+        for (var p = 0; p < array1.length; p++) {
+            for (var j = 0; j < array1[p].length; j++) {
+                array1 = new Array(3);
+            }
+        }
+
+        var t = 0;
+
+        for (var o = 0; o < array1.length; o++) {
+            for (var h = 0; h < array1[o].length; h++) {
+                for (var j = 0; j < array1[o][h].length; j++) {
+                    array1[o][h][j] = t++;
+                }
+            }
+        }
+
+        for (var i = 0; i < array1.length; i++) {
+            for (var j = 0; j < array1[i].length; j++) {
+                for (var k = 0; k < array1[i][j].length; k++) {
+                    document.write(array1[i][j][k]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

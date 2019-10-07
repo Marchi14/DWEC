@@ -7,12 +7,35 @@
 
 <body>
     <script language="JavaScript" type="text/javascript">
-        var primera = 20;
-        var segunda = 40;
-        var tercera = 15;
-        var suma = primera + segunda;
-        var resta =
-            alert("La suma es: ", suma);
+        var usuarios = [Antonio, Juan, Jorge, Javier];
+        var contras = [1234, 4321, 5678, 8765];
+
+        var usuario = prompt("Nombre de usuario:");
+        var contra = prompt("Cual es su contraseña?");
+        var valor1;
+        var valor2;
+
+        function compUser() {
+            for (var i = 0; i < usuarios.length; i++) {
+                if (usuarios[i] == usuario) {
+                    valor1 = usuarios[i];
+                    break;
+                } else {
+                    valor1 = false;
+                }
+            }
+        }
+
+        function compUser() {
+            for (var i = 0; i < contras.length; i++) {
+                if (contras[i] == contra) {
+                    valor2 = contras[i];
+                    break;
+                } else {
+                    valor2 = false;
+                }
+            }
+        }
     </script>
 </body>
 

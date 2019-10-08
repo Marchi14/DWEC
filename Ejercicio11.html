@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 11</title>
+</head>
+
+<body>
+    <script language="JavaScript" type="text/javascript">
+        var texto = "En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua rocín flaco y galgo corredor."
+        document.write("<p>" + "El texto tiene ", texto.length, " caracteres" + "</p>");
+        var a = 0;
+        for (var i = 0; i < texto.length; i++) {
+            if (texto.charAt(i) == 'a') {
+                a = a + 1;
+            }
+        }
+        document.write("<p>" + "La variable contiene ", a, " letras a" + "</p>");
+        var index = 0;
+        for (var i = 0; i < texto.length; i++) {
+            if (texto.charAt(i) == ',' || texto.charAt(i) == '.') {
+                document.write("<p style='color:green;'>" + texto.slice(index, i) + "</p>");
+                index = i + 1;
+            }
+        }
+        var p = texto.indexOf("hidalgo");
+        document.write("<p>" + "La palabra hidalgo esta en la posición: ", p + "</p>");
+        document.write("<p style='color:red;'>" + texto.toUpperCase() + "</p>");
+        document.write("<p style='color:blue;'>" + texto.toLowerCase() + "</p>");
+        document.write("<p><a href='http://www.cipsa.net'>Cipsa</a></p>");
+    </script>
+</body>
+
+</html>

@@ -7,7 +7,7 @@
 
 <body>
     <script language="JavaScript" type="text/javascript">
-        var usuarios = [Antonio, Juan, Jorge, Javier];
+        var usuarios = ["Antonio", "Juan", "Jorge", "Javier"];
         var contras = [1234, 4321, 5678, 8765];
 
         var usuario = prompt("Nombre de usuario:");
@@ -15,26 +15,31 @@
         var valor1;
         var valor2;
 
-        function compUser() {
+        function compUsuarios() {
             for (var i = 0; i < usuarios.length; i++) {
                 if (usuarios[i] == usuario) {
-                    valor1 = usuarios[i];
-                    break;
-                } else {
-                    valor1 = false;
+                    return i;
                 }
             }
+            return false;
         }
 
-        function compUser() {
+        function compContras() {
             for (var i = 0; i < contras.length; i++) {
                 if (contras[i] == contra) {
-                    valor2 = contras[i];
-                    break;
-                } else {
-                    valor2 = false;
+                    return i;
                 }
             }
+            return false;
+        }
+
+        valor1 = compUsuarios();
+        valor2 = compContras();
+
+        if (valor1 == valor2 && valor2 !== false) {
+            document.write("Bienvenido ", usuarios[valor1]);
+        } else {
+            document.write("Los datos son incorrectos");
         }
     </script>
 </body>

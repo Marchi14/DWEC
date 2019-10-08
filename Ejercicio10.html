@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 10</title>
+</head>
+
+<body>
+    <script language="JavaScript" type="text/javascript">
+        var nombre = prompt("Introduce tu nombre:");
+
+        function primera() {
+            var texto = "Hola ";
+            var union = texto.concat(nombre);
+            segunda(union);
+        }
+
+        function segunda(parametro) {
+            var texto = ", que";
+            var union = parametro.concat(texto);
+            tercera(union);
+        }
+
+        function tercera(parametro) {
+            var texto = "tal??";
+            var union = parametro.concat(texto);
+            alert(union);
+        }
+
+        primera();
+    </script>
+</body>
+
+</html>

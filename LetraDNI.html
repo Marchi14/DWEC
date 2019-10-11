@@ -16,10 +16,10 @@
             document.getElementById("let").value = Letra[index];
         }
     </script>
-    <form name="form" method="get">
-        <input type="text" name="dni">
-        <input type="text" id="let"><br>
-        <input type="submit" value="Enviar" onclick="letra(dni)">
+    <form name="form">
+        <input type="text" name="dni" id="dni">
+        <input type="text" name="let" id="let" value=""><br>
+        <input type="button" value="Enviar" onclick="letra(dni.value)">
     </form>
 </body>
 

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Letra Dni</title>
+</head>
+
+<body>
+    <script>
+        var Letra = ['T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E'];
+
+        function letra(num) {
+            num = parseInt(num, 10);
+            var index = num % 23;
+            document.getElementById("let").value = Letra[index];
+        }
+    </script>
+    <form name="form" method="get">
+        <input type="text" name="dni">
+        <input type="text" id="let"><br>
+        <input type="submit" value="Enviar" onclick="letra(dni)">
+    </form>
+</body>
+
+</html>

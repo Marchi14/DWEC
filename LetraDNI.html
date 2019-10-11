@@ -13,11 +13,14 @@
         function letra(num) {
             num = parseInt(num, 10);
             var index = num % 23;
+            console.log(index);
             document.getElementById("let").value = Letra[index];
         }
     </script>
     <form name="form">
+        <label for="dni">Numeros del DNI</label>
         <input type="text" name="dni" id="dni">
+        <label for="let">Letra del DNI</label>
         <input type="text" name="let" id="let" value=""><br>
         <input type="button" value="Enviar" onclick="letra(dni.value)">
     </form>

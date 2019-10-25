@@ -25,7 +25,7 @@ function init() {
 //función de deserialización (usamos método parse)
 function deserialize(bicho) {
     var otrobicho = JSON.parse(bicho);
-
+    console.log(otrobicho);
     alert("Nombre: " + otrobicho.nombre + "\nTipo: " +
         otrobicho.tipo + "\nPeso: " + otrobicho.peso +
         "\nAficiones: " + otrobicho.aficiones[0] + ", " + otrobicho.aficiones[1] + ", " + otrobicho.aficiones[2]);

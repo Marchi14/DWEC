@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let nomape = /^[A-Z]\D+/g;
+        let fact = /\d{6}/g;
+        let email = /^\w+\\@?\D+\D+/g;
+        let importe = /^\d{1,8}\\,?\d{2}$/g;
+
+        class Factura {
+            constructor(Nombre, Apellido, Factura, Mail, Importe) {
+                this.Nombre = Nombre;
+                this.Apellido = Apellido;
+                this.Factura = Factura;
+                this.Mail = Mail;
+                this.Importe = Importe;
+            }
+        }
+
+        function Comprobar() {
+            let texto = document.getElementById('nom').value;
+            let patron = nomape.test(texto);
+            if (!patron) {
+                alert("El campo Nombre no cumple con lo requerido");
+            }
+            let texto = document.getElementById('ape').value;
+            let patron = nomape.test(texto);
+            if (!patron) {
+                alert("El campo Apellido no cumple con lo requerido");
+            }
+            let texto = document.getElementById('fac').value;
+            let patron = fact.test(texto);
+            if (!patron) {
+                alert("El campo Nº Factura no cumple con lo requerido");
+            }
+            let texto = document.getElementById('email').value;
+            let patron = email.test(texto);
+            if (!patron) {
+                alert("El campo E-Mail no cumple con lo requerido");
+            }
+            let texto = document.getElementById('imp').value;
+            let patron = importe.test(texto);
+            if (!patron) {
+                alert("El campo Importe no cumple con lo requerido");
+            }
+
+        }
+    </script>
+    <form method="get" id="formu">
+        <label for="nom">Nombre</label>
+        <input type="text" name="nom" id="nom"><br>
+        <label for="ape">Apellido</label>
+        <input type="text" name="ape" id="ape"><br>
+        <label for="fac">Nº Factura</label>
+        <input type="text" name="fac" id="fac"><br>
+        <label for="email">E-Mail</label>
+        <input type="text" name="email" id="email"><br>
+        <label for="imp">Importe</label>
+        <input type="text" name="imp" id="imp" value=",00"><br>
+        <input type="button" onclick="Comprobar()" id="boton" value="Comprobar">
+    </form>
+</body>
+
+</html>

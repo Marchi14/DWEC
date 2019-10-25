@@ -21,35 +21,74 @@
                 this.Mail = Mail;
                 this.Importe = Importe;
             }
+
+            set Nombre(Nombre) {
+                this.Nombre = Nombre;
+            }
+
+            get Nombre() {
+                return this.Nombre;
+            }
+
+            set Apellido(Apellido) {
+                this.Apellido = Apellido;
+            }
+
+            get Apellido() {
+                return this.Apellido;
+            }
+
+            set Factura(Factura) {
+                this.Factura = Factura;
+            }
+
+            get Factura() {
+                return this.Factura;
+            }
+
+            set Mail(Mail) {
+                this.Mail = Mail;
+            }
+
+            get Mail() {
+                return this.Mail;
+            }
+
+            set Importe(Importe) {
+                this.Importe = Importe;
+            }
+
+            get Importe() {
+                return this.Importe;
+            }
         }
 
         function Comprobar() {
-            let texto = document.getElementById('nom').value;
-            let patron = nomape.test(texto);
+            let texto1 = document.getElementById('nom').value;
+            let patron = nomape.test(texto1);
             if (!patron) {
                 alert("El campo Nombre no cumple con lo requerido");
             }
-            let texto = document.getElementById('ape').value;
-            let patron = nomape.test(texto);
+            let texto2 = document.getElementById('ape').value;
+            let patron = nomape.test(texto2);
             if (!patron) {
                 alert("El campo Apellido no cumple con lo requerido");
             }
-            let texto = document.getElementById('fac').value;
-            let patron = fact.test(texto);
+            let texto3 = document.getElementById('fac').value;
+            let patron = fact.test(texto3);
             if (!patron) {
                 alert("El campo Nº Factura no cumple con lo requerido");
             }
-            let texto = document.getElementById('email').value;
-            let patron = email.test(texto);
+            let texto4 = document.getElementById('email').value;
+            let patron = email.test(texto4);
             if (!patron) {
                 alert("El campo E-Mail no cumple con lo requerido");
             }
-            let texto = document.getElementById('imp').value;
-            let patron = importe.test(texto);
+            let texto5 = document.getElementById('imp').value;
+            let patron = importe.test(texto5);
             if (!patron) {
                 alert("El campo Importe no cumple con lo requerido");
             }
-
         }
     </script>
     <form method="get" id="formu">

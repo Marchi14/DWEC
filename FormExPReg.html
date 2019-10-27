@@ -26,47 +26,27 @@
                 this.Nombre = Nombre;
             }
 
-            get Nombre() {
-                return this.Nombre;
-            }
-
             set Apellido(Apellido) {
                 this.Apellido = Apellido;
-            }
-
-            get Apellido() {
-                return this.Apellido;
             }
 
             set Factura(Factura) {
                 this.Factura = Factura;
             }
 
-            get Factura() {
-                return this.Factura;
-            }
-
             set Mail(Mail) {
                 this.Mail = Mail;
             }
 
-            get Mail() {
-                return this.Mail;
-            }
-
             set Importe(Importe) {
                 this.Importe = Importe;
-            }
-
-            get Importe() {
-                return this.Importe;
             }
         }
 
         function Comprobar() {
             var fac = new Factura('', '', '', '', '');
             var texto1 = document.getElementById('nom').value;
-            patron = nomape.test(texto1);
+            var patron = nomape.test(texto1);
             if (patron = false) {
                 alert("El campo Nombre no cumple con lo requerido");
             } else {

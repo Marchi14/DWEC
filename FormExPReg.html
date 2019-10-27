@@ -8,11 +8,6 @@
 
 <body>
     <script>
-        let nomape = /^[A-Z]\D+/g;
-        let fact = /\d{6}/g;
-        let email = /^\w+\\@?\D+\D+/g;
-        let importe = /^\d{1,8}\\,?\d{2}$/g;
-
         class Factura {
             constructor(Nombre, Apellido, Factura, Mail, Importe) {
                 this.Nombre = Nombre;
@@ -22,75 +17,98 @@
                 this.Importe = Importe;
             }
 
-            set Nombre(Nombre) {
+            setNombre(Nombre) {
                 this.Nombre = Nombre;
             }
 
-            set Apellido(Apellido) {
+            setApellido(Apellido) {
                 this.Apellido = Apellido;
             }
 
-            set Factura(Factura) {
+            setFactura(Factura) {
                 this.Factura = Factura;
             }
 
-            set Mail(Mail) {
+            setMail(Mail) {
                 this.Mail = Mail;
             }
 
-            set Importe(Importe) {
+            setImporte(Importe) {
                 this.Importe = Importe;
             }
         }
 
         function Comprobar() {
+            var flag = true;
+            let nom = /^[A-Z]\D+/g;
+            let ape = /^[A-Z]\D+/g;
+            let fact = /\d{6}/g;
+            let email = /^\w+@\D+\D+/g;
+            let importe = /^\d{1,8},\d{2}$/g;
             var fac = new Factura('', '', '', '', '');
             var texto1 = document.getElementById('nom').value;
-            var patron = nomape.test(texto1);
-            if (patron = false) {
+            var patron = nom.test(texto1);
+            if (patron == false) {
                 alert("El campo Nombre no cumple con lo requerido");
+                flag = false;
             } else {
-                fac.Nombre(texto1);
+                fac.setNombre(texto1);
             }
+
+
             var texto2 = document.getElementById('ape').value;
-            patron = nomape.test(texto2);
-            if (patron = false) {
+            console.log(texto2);
+            patron = ape.test(texto2);
+            if (patron == false) {
                 alert("El campo Apellido no cumple con lo requerido");
+                flag = false;
             } else {
-                fac.Apellido(texto2);
+                fac.setApellido(texto2);
             }
+
+
             var texto3 = document.getElementById('fac').value;
             patron = fact.test(texto3);
-            if (patron = false) {
+            if (patron == false) {
                 alert("El campo Nº Factura no cumple con lo requerido");
+                flag = false;
             } else {
-                fac.Factura(texto3);
+                fac.setFactura(texto3);
             }
+
+
             var texto4 = document.getElementById('email').value;
             patron = email.test(texto4);
-            if (patron = false) {
+            if (patron == false) {
                 alert("El campo E-Mail no cumple con lo requerido");
+                flag = false;
             } else {
-                fac.Mail(texto4);
+                fac.setMail(texto4);
             }
+
+
             var texto5 = document.getElementById('imp').value;
             patron = importe.test(texto5);
-            if (patron = false) {
+            if (patron == false) {
                 alert("El campo Importe no cumple con lo requerido");
+                flag = false;
             } else {
-                fac.Importe(texto5);
+                fac.setImporte(texto5);
             }
-            Convertir(fac);
+
+            if (flag) {
+                var facturaJSON = JSON.stringify(fac);
+                Convertir(facturaJSON);
+            }
         }
 
         function Convertir(Fac) {
-            var facturaJSON = JSON.stringify(Fac);
-            var res = JSON.parse(facturaJSON);
+            var res = JSON.parse(Fac);
             alert("Nombre: " + res.Nombre + "\nApellido: " + res.Apellido + "\nFactura: " + res.Factura +
                 "\nE-Mail: " + res.Mail + "\nImporte: " + res.Importe);
         }
     </script>
-    <form method="get" id="formu">
+    <form>
         <label for="nom">Nombre</label>
         <input type="text" name="nom" id="nom"><br>
         <label for="ape">Apellido</label>
@@ -101,7 +119,7 @@
         <input type="text" name="email" id="email"><br>
         <label for="imp">Importe</label>
         <input type="text" name="imp" id="imp" value=",00"><br>
-        <input type="button" onclick="Comprobar()" id="boton" value="Comprobar"><br><br><br>
+        <input type="button" value="Comprobar" onclick="Comprobar()">
     </form>
 </body>
 

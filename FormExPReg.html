@@ -67,35 +67,35 @@
             var fac = new Factura('', '', '', '', '');
             let texto1 = document.getElementById('nom').value;
             let patron = nomape.test(texto1);
-            if (!patron) {
+            if (patron = false) {
                 alert("El campo Nombre no cumple con lo requerido");
             } else {
                 fac.Nombre(texto1);
             }
             let texto2 = document.getElementById('ape').value;
             let patron = nomape.test(texto2);
-            if (!patron) {
+            if (patron = false) {
                 alert("El campo Apellido no cumple con lo requerido");
             } else {
                 fac.Apellido(texto2);
             }
             let texto3 = document.getElementById('fac').value;
             let patron = fact.test(texto3);
-            if (!patron) {
+            if (patron = false) {
                 alert("El campo Nº Factura no cumple con lo requerido");
             } else {
                 fac.Factura(texto3);
             }
             let texto4 = document.getElementById('email').value;
             let patron = email.test(texto4);
-            if (!patron) {
+            if (patron = false) {
                 alert("El campo E-Mail no cumple con lo requerido");
             } else {
                 fac.Mail(texto4);
             }
             let texto5 = document.getElementById('imp').value;
             let patron = importe.test(texto5);
-            if (!patron) {
+            if (patron = false) {
                 alert("El campo Importe no cumple con lo requerido");
             } else {
                 fac.Importe(texto5);
@@ -106,7 +106,7 @@
         function Convertir(Fac) {
             var facturaJSON = JSON.stringify(Fac);
             var res = JSON.parse(facturaJSON);
-            document.write("Nombre: " + res.Nombre + "\nApellido: " + res.Apellido + "\nFactura: " + res.Factura +
+            alert("Nombre: " + res.Nombre + "\nApellido: " + res.Apellido + "\nFactura: " + res.Factura +
                 "\nE-Mail: " + res.Mail + "\nImporte: " + res.Importe);
         }
     </script>

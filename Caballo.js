@@ -33,6 +33,8 @@ function check(x, y) {
         actualx = x;
         actualy = y;
     }
+    event.preventDefault();
+    event.stopPropagation();
 }
 
 function pintaycolorea(x, y) {
@@ -41,4 +43,10 @@ function pintaycolorea(x, y) {
     tablero[x][y] = 1;
     document.getElementById("c" + x + y).innerHTML = '<img src="horse.gif" alt="Caballo" width="46px" height="46px">';
     document.getElementById("c" + actualx + actualy).innerHTML = '';
+    event.preventDefault();
+    event.stopPropagation();
+}
+
+function DragOver(event) {
+    event.preventDefault();
 }

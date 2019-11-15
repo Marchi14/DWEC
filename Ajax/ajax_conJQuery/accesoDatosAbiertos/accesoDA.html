@@ -1,0 +1,107 @@
+<html>
+<head>
+        <meta charset="utf-8">
+        <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+      </head>
+      <style>
+        h1 {
+        text-align:center;
+        }
+        
+        fieldset {
+        width: 300px;
+        margin: 0 auto;
+        }
+        label {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+        }
+        span {
+        display: inline-block;
+        width: 150px;
+        }
+        ul {
+        list-style-type: none;
+        padding: 0;
+        }
+      </style>
+     <head>
+      <meta charset="utf-8">
+    </head>
+    
+    <body>
+      <h1>Meteoritos estrellados</h1>
+      <fieldset>
+        <select id="identificador">
+        <option>Selecciona un identificador</option></select>
+        <ul>
+          <li><label>Id:</label><span id="id"></span></li>
+          <li><label>Nombre:</label><span id="name"></span></li>
+          <li><label>Tipo:</label><span id="nametype"></span></li>
+          <li><label>Clase:</label><span id="recclass"></span></li>
+          <li><label>Masa:</label><span id="mass"></span></li>
+          <li><label>Caído:</label><span id="fall"></span></li>
+          <li><label>Año:</label><span id="year"></span></li>
+          <li><label>Latitud:</label><span id="reclat"></span></li>
+          <li><label>Longitud:</label><span id="reclong"></span></li>
+          <li><label>Geolocalización:</label><span id="geolocation"></span></li>
+        </ul>
+      </fieldset>
+
+      <script>
+          var dades = {};
+
+            $.ajax({
+              url: 'https://data.nasa.gov/resource/y77d-th95.json',
+              beforeSend: function(jqXHR) {
+                jqXHR.overrideMimeType('application/json');
+              },
+              success: procesarRespuesta,
+              dataType: 'json',
+            });
+
+            function procesarRespuesta(respuesta, statusText, jqXHR) {
+              var $listaDesplegable = $('#identificador');
+
+              for (var i = 0; i < respuesta.length; i++) {
+                var $item = procesarDato(respuesta[i]);           
+                dades[respuesta[i].id] = respuesta[i];
+                $listaDesplegable.append($item);
+              }
+
+              $listaDesplegable.on('change', actualizarDatosMostrados);
+            }
+
+            function procesarDato(dato) {
+              var $item = $('<option>');
+              $item.attr('value', dato.id);
+              $item.html(dato.id);
+
+              return $item;
+            }
+
+            function actualizarDatosMostrados(event) {
+              var $listaDesplegable = $('#identificador');
+             
+              var dato = dades[$listaDesplegable.val()]
+
+              actualizarDatoMostrado('id', dato.id);
+              actualizarDatoMostrado('name', dato.name);
+              actualizarDatoMostrado('nametype', dato.nametype);
+              actualizarDatoMostrado('recclass', dato.recclass);
+              actualizarDatoMostrado('mass', dato.mass);
+              actualizarDatoMostrado('fall', dato.fall);
+              actualizarDatoMostrado('year', dato.year);
+              actualizarDatoMostrado('reclat', dato.reclat);
+              actualizarDatoMostrado('reclong', dato.reclong);
+              actualizarDatoMostrado('geolocation', dato.geolocation);
+
+            }
+
+            function actualizarDatoMostrado(nom, valor) {
+              $('#' + nom).html(valor);
+            }
+      </script>
+    </body>
+</html>

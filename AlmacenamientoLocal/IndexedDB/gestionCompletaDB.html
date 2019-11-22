@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>IndexedDB: Base de datos local con HTML%</title>
+        <script type="text/javascript">
+            // Creamos y comprobamos la base de datos según el navegador
+            var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+            var dataBase = null;
+
+            // Arrancamos la base de datos
+            function startDB() {
+
+                dataBase = indexedDB.open("object", 1);
+
+                dataBase.onupgradeneeded = function (e) {
+
+                    var active = dataBase.result;
+                    // creamos el almacén de objetos, que será nuestra bd -- createObjectStore (nombre, parametrosOpcionales(indice,tipo,...))
+                    var object = active.createObjectStore("people", {keyPath: 'id', autoIncrement: true}); 
+                    // creamos los índices y establecemos si són o no únicos
+                    object.createIndex('by_name', 'name', {unique: false});
+                    object.createIndex('by_dni', 'dni', {unique: true});
+
+                };
+
+                dataBase.onsuccess = function (e) {
+                    //    alert('Base de datos cargada satisfactoriamente');
+                    loadAll();
+                };
+
+                dataBase.onerror = function (e) {
+                    alert('Error al cargar la base de datos');
+                };
+
+            }
+
+            // Añadir registro
+            function add() {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readwrite");
+                var object = data.objectStore("people");
+
+                var request = object.put({    // El método put añade el objeto si no existe y, si existe, lo modifica
+                    dni: document.querySelector("#dni").value,
+                    name: document.querySelector("#name").value,
+                    surname: document.querySelector("#surname").value
+                });
+
+                request.onerror = function (e) {
+                    alert(request.error.name + '\n\n' + request.error.message);
+                };
+
+                data.oncomplete = function (e) {
+
+                    document.querySelector('#dni').value = '';
+                    document.querySelector('#name').value = '';
+                    document.querySelector('#surname').value = '';
+                    alert('Registro añadido satisfactoriamente');
+                    loadAll();
+                };
+
+            }
+
+            // Eliminar registro
+            function erase(id) {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readwrite");
+                var request = data.objectStore("people");
+
+    
+                request.delete(parseInt(id));
+
+                request.onerror = function (e) {
+                    alert(request.error.name + '\n\n' + request.error.message);
+                };
+
+
+                data.oncomplete = function (e) {
+
+                     document.querySelector('#dni').value = '';
+                     document.querySelector('#name').value = '';
+                     document.querySelector('#surname').value = '';
+                     alert('Registro eliminado satisfactoriamente');
+                     loadAll();
+                 };
+            }
+
+            // Mostrar detalle de registro seleccionado
+            function load(id) {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readonly");
+                var object = data.objectStore("people");
+
+                var request = object.get(parseInt(id));
+
+                request.onsuccess = function () {
+                    var result = request.result;
+
+                    if (result !== undefined) {
+                        alert("ID: " + result.id + "\n\
+                               DNI " + result.dni + "\n\
+                               Nombre: " + result.name + "\n\
+                               Apellidos: " + result.surname);
+                    }
+                };
+            }
+
+            // Mostrar registros ordenados por DNI
+            function loadByDni() {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readonly");
+                var object = data.objectStore("people");
+                var index = object.index("by_dni");
+
+                var elements = [];
+                
+                index.openCursor().onsuccess = function (e) {
+
+                    var result = e.target.result;
+
+                    if (result === null) {
+                        return;
+                    }
+
+                    elements.push(result.value);
+                    result.continue();
+
+                };
+
+                data.oncomplete = function () {
+
+                    var outerHTML = '';
+
+                    for (var key in elements) {
+
+                        outerHTML += '\n\
+                        <tr>\n\
+                            <td>' + elements[key].dni + '</td>\n\
+                            <td>' + elements[key].name + '</td>\n\
+                            <td>' + elements[key].surname +'</td>\n\
+                            <td>\n\
+                                <button type="button" onclick="load(' + elements[key].id + ')">Detalles</button>\n\
+                                <button type="button" onclick="erase(' + elements[key].id + ')">Eliminar</button>\n\
+                            </td>\n\
+                        </tr>';
+                    };
+                    elements = [];
+                    document.querySelector("#elementsList").innerHTML = outerHTML;
+                }                
+            }
+
+            // Carga de registros ordenada por id y presentar por pantalla
+            function loadAll() {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readonly");
+                var object = data.objectStore("people");
+
+                var elements = [];
+
+                object.openCursor().onsuccess = function (e) {
+
+                    var result = e.target.result;
+
+                    if (result === null) {
+                        return;
+                    }
+
+                    elements.push(result.value);
+                    result.continue();
+
+                };
+
+                data.oncomplete = function () {
+
+                    var outerHTML = '';
+
+                    for (var key in elements) {
+
+                        outerHTML += '\n\
+                        <tr>\n\
+                            <td>' + elements[key].dni + '</td>\n\
+                            <td>' + elements[key].name + '</td>\n\
+                            <td>' + elements[key].surname + '</td>\n\
+                            <td>\n\
+                                <button type="button" onclick="load(' + elements[key].id + ')">Detalles</button>\n\
+                                <button type="button" onclick="erase(' + elements[key].id + ')">Eliminar</button>\n\
+                            </td>\n\
+                        </tr>';
+
+                    }
+
+                    elements = [];
+                    document.querySelector("#elementsList").innerHTML = outerHTML;
+                };
+            }
+            
+            // Ordenar por nombre y presentar por pantalla
+            function loadAllByName() {
+                var active = dataBase.result;
+                var data = active.transaction(["people"], "readonly");
+                var object = data.objectStore("people");
+                var index = object.index("by_name");
+                
+                var elements = [];
+
+                index.openCursor().onsuccess = function (e) {
+
+                    var result = e.target.result;
+
+                    if (result === null) {
+                        return;
+                    }
+
+                    elements.push(result.value);
+                    result.continue();
+
+                };
+
+                data.oncomplete = function () {
+
+                    var outerHTML = '';
+
+                    for (var key in elements) {
+
+                        outerHTML += '\n\
+                        <tr>\n\
+                            <td>' + elements[key].dni + '</td>\n\
+                            <td>' + elements[key].name + '</td>\n\
+                            <td>' + elements[key].surname +'</td>\n\
+                            <td>\n\
+                                <button type="button" onclick="load(' + elements[key].id + ')">Detalles</button>\n\
+                                <button type="button" onclick="erase(' + elements[key].id + ')">Eliminar</button>\n\
+                            </td>\n\
+                        </tr>';
+
+                    }
+
+                    elements = [];
+                    document.querySelector("#elementsList").innerHTML = outerHTML;
+                };
+            }
+
+            function deleteFullDB(){
+                var req = indexedDB.deleteDatabase("object");  // Nombre de la BD - mismo que para método .OPEN
+                req.onsuccess = function () {
+                    console.log("BD borrada satisfactoriamente");
+                    var outerHTML = 'La Base de Datos ha sido eliminada - NO EXISTEN REGISTROS -';
+                    document.querySelector("#elementsList").innerHTML = outerHTML;
+                };
+                req.onerror = function () {
+                    console.log("Error al intentar borrar la BD");
+                };
+                req.onblocked = function () {
+                    console.log("No se puede borrar la BD. Bloqueada por alguna transacción");
+                };
+
+            }
+
+        </script>            
+    </head>
+    <body onload="startDB();">
+            <input type="text" id="dni" placeholder="Introducir dni" />
+            <input type="text" id="name" placeholder="Introducir nombre" /> 
+            <input type="text" id="surname" placeholder="Introducir apellidos" />
+            <button type="button" onclick="add();">Guardar</button>
+        <hr>
+        <div id="elements">
+            <table>
+                <caption>Personas</caption>
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody id="elementsList">
+                    <tr>
+                        <td colspan="5">Sin elementos para mostrar</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button type="button" onclick="loadAllByName();">Ordenar por nombre</button>
+        <button type="button" onclick="loadByDni();">Ordenar por DNI</button>
+        <button type="button" onclick="deleteFullDB();">Eliminar BD</button>
+    </body>
+</html>

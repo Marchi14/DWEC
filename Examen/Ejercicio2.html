@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        for (var i = 0; i < 3; i++) {
+            if (i == 1) { //Controlamos el momento en el que el id sea del elemento 1
+                continue; //y con continue evitamos que realize la accion de creacion sin tener que parar el bucle
+            }
+            var element = document.createElement("p");
+            element.setAttribute("id", "element" + i);
+            document.body.appendChild(element);
+            element.appendChild(document.createTextNode("Hola Mundo, soy el elemento " + i + "."));
+        }
+    </script>
+</body>
+
+</html>

@@ -39,6 +39,7 @@
         }
 
         function comprueba(letra) {
+            var flag = false;
             var letra = document.getElementById("letra").value;
             var fallos = 1;
             for (var j = 0; j < palabra.length; j++) {
@@ -47,11 +48,13 @@
             for (var i = 0; i < letras.length; i++) {
                 if (letra == letras[i]) {
                     document.getElementById("letra" + i).value = letra;
-                    break;
+                    flag = true;
+                    continue;
                 }
-                if (i == (letras.length - 1) && letra != letras[i]) {
-                    $("p").text("Fallos:" + fallos);
+                if (i == (letras.length - 1) && letra != letras[i] && flag == false) {
                     fallos = fallos + 1;
+                    $("p").text("Fallos:" + fallos);
+                    break;
                 }
             }
             if (fallos == 7) {

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Juego del Ahorcado</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+
+<body>
+    <h1>Juego del Ahorcado</h1>
+    <form>
+        <label for="letra">Letra</label>
+        <input type="text" id="letra">
+        <input type="button" value="Prueba suerte" onclick="comprueba()">
+    </form>
+    <p>Fallos: 0</p>
+    <script>
+        var pattern = "/^\D{0,8}";
+        var palabra = prompt("Palabra a adivinar, recuerda que debe tener 8 letras o menos");
+        var flag = palabra.match(pattern);
+        while (flag = false) {
+            alert("La palabra contiene numeros o simbolos que no son letras o no cumple la longitud deseada");
+            var palabra = prompt("Palabra a adivinar, recuerda que debe tener 8 letras o menos");
+        }
+        if (flag = true) {
+            for (var i = 0; i < palabra.length; i++) {
+                var element1 = document.createElement("label");
+                element1.setAttribute("for", "letra" + i);
+                var node = document.createTextNode("Letra " + (i + 1));
+                element1.appendChild(node);
+                document.body.appendChild(element1);
+                var element = document.createElement("input");
+                element.setAttribute("type", "text");
+                element.setAttribute("id", "letra" + i);
+                document.body.appendChild(element);
+                document.body.appendChild(document.createElement("br"));
+            }
+        }
+
+        function comprueba(letra) {
+            var letra = document.getElementById("letra").value;
+            var fallos = 1;
+            for (var j = 0; j < palabra.length; j++) {
+                var letras = palabra.split('', j + 1);
+            }
+            for (var i = 0; i < letras.length; i++) {
+                if (letra == letras[i]) {
+                    document.getElementById("letra" + i).value = letra;
+                    break;
+                }
+                if (i == (letras.length - 1) && letra != letras[i]) {
+                    $("p").text("Fallos:" + fallos);
+                    fallos = fallos + 1;
+                }
+            }
+            if (fallos == 7) {
+                var p = document.createElement("p");
+                var texto = document.createTextNode("Has perdido");
+                p.appendChild(texto);
+                document.body.appendChild(p);
+                $("#letra").attr("disabled", "true");
+                $("[value]").attr("disabled", "true");
+                var element = document.createElement("input");
+                element.setAttribute("type", "button");
+                element.setAttribute("value", "Reiniciar");
+                element.setAttribute("onclick", "location.reload();");
+                document.body.appendChild(element);
+            }
+        }
+    </script>
+</body>
+
+</html>
